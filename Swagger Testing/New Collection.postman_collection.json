@@ -1,0 +1,243 @@
+{
+	"info": {
+		"_postman_id": "f508b6a6-1b5a-4255-8c4e-bf43afe66e97",
+		"name": "New Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21782443"
+	},
+	"item": [
+		{
+			"name": "/api/v1/Authors",
+			"item": [
+				{
+					"name": "Get Authors",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"//console.log(\"GET Authors: \" + pm.response.code + \" \" + pm.response.status)\r",
+									"//console.log(pm.response.json())\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"/*\r",
+									"console.log(pm.response.json()[0].id)\r",
+									"console.log(pm.response.json()[0].idBook)\r",
+									"console.log(pm.response.json()[0].firstName)\r",
+									"console.log(pm.response.json()[0].lastName)\r",
+									"*/\r",
+									"pm.test(\"Objects inside response contain: id, idBook, firstName, lastName\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"id\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"idBook\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"firstName\");\r",
+									"    pm.expect(pm.response.text()).to.include(\"lastName\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseURL}}/api/v1/Authors",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"Authors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Author",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"console.log(\"POST Authors: \" + pm.response.code + \" \" + pm.response.status)\r",
+									"\r",
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 600,\r\n  \"idBook\": 201,\r\n  \"firstName\": \"Mario\",\r\n  \"lastName\": \"Ashraf\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://fakerestapi.azurewebsites.net/api/v1/Authors",
+							"protocol": "http",
+							"host": [
+								"fakerestapi",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"api",
+								"v1",
+								"Authors"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "/api/v1/Authors/authors/books/{idBook}",
+			"item": [
+				{
+					"name": "Get Book ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"/*\r",
+									"var i = 1;\r",
+									"var j = 0;\r",
+									"for(i = 1; i <= 200; i++)\r",
+									"{\r",
+									"    for(j = 0; j < 200; j++)\r",
+									"    {\r",
+									"        pm.environment.set(\"idBook\", i);\r",
+									"        console.log(\"For idBook: \" + i);\r",
+									"        pm.expect(pm.response.json()[j].idBook).to.equal(i)\r",
+									"    }\r",
+									"}\r",
+									"*/\r",
+									"\r",
+									"pm.test(\"Valid idBook should return relative data in response body, with idBook = 1\", function () {\r",
+									"    pm.environment.set(\"idBook\", 1);\r",
+									"    pm.expect(pm.response.json()[0].idBook).to.equal(1);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseURL}}/api/v1/Authors/authors/books/{{idBook}}",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"Authors",
+								"authors",
+								"books",
+								"{{idBook}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "/api/v1/Authors/{id}",
+			"item": [
+				{
+					"name": "Get Author's ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"id\", 1);\r",
+									"\r",
+									"pm.test(\"Author's data is updated successfully\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 1,\r\n  \"idBook\": 1,\r\n  \"firstName\": \"Mario\",\r\n  \"lastName\": \"Ashraf\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/api/v1/Authors/{{id}}",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"Authors",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Author",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://fakerestapi.azurewebsites.net/api/v1/Authors/:id",
+							"protocol": "http",
+							"host": [
+								"fakerestapi",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"api",
+								"v1",
+								"Authors",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,87 @@
+------------------------------------------------------------------ 
+******************* SWAGGER APIS TEST CASES **********************
+------------------------------------------------------------------ 
+
+API: GET /api/v1/Authors
+ Test Case: response should be 200 OK
+ Expected Result: 200 OK
+ Actual Result: 200 OK
+ Status: Pass
+ 
+API: GET /api/v1/Authors
+ Test Case: Objects inside response contain: id, idBook, firstName, lastName
+ Expected Result: id, idBook, firstName, lastName in the response
+ Actual Result: id, idBook, firstName, lastName in the response
+ Status: Pass
+
+------------------------------------------------------------------ 
+API: POST /api/v1/Authors
+ Test Case: Register a new valid Author successfully and response code "201 Created"
+ Expected Result: Register new valid Author and "201 Created"
+ Actual Result: New Author is registered but "200 OK"
+ Status: Fail
+ 
+API: POST /api/v1/Authors
+ Test Case: firstname & lastname should be mandatory. Executing API without firstName only
+ Expected Result: 400 Bad Request
+ Actual Result: 200 OK
+ Status: Fail
+
+API: POST /api/v1/Authors
+ Test Case: firstname & lastname should be mandatory. Executing API without lastName only
+ Expected Result: 400 Bad Request
+ Actual Result: 200 OK
+ Status: Fail
+ 
+API: POST /api/v1/Authors
+ Test Case: firstname & lastname should be mandatory. Executing API without blank firstName and lastName fields
+ Expected Result: 400 Bad Request
+ Actual Result: 200 OK
+ Status: Fail
+ 
+API: POST /api/v1/Authors
+ Test Case: firstname & lastname should be mandatory. Executing API without firstName and lastName
+ Expected Result: 400 Bad Request
+ Actual Result: 400 Bad Request
+ Status: Pass
+ 
+------------------------------------------------------------------ 
+API: GET /api/v1/Authors/authors/books/{idBook}
+ Test Case: Searching with valid idBook should return relative data in response body, with idBook = 1
+ Expected Result: Response body should contains idBook = 1
+ Actual Result: Response body contains idBook = 1
+ Status: Pass
+ 
+API: GET /api/v1/Authors/authors/books/{idBook}
+ Test Case: Searching with valid idBook should return relative data in response body, with idBook = 2
+ Expected Result: Response body should contains idBook = 2
+ Actual Result: Response body contains idBook = 2
+ Status: Pass
+ 
+------------------------------------------------------------------ 
+API: PUT /api/v1/Authors/{id}
+ Test Case: Author's data is updated successfully
+ Expected Result: Author's data is updates successfully
+ Actual Result: Author's data is updates successfully
+ Status: Pass
+ 
+API: PUT /api/v1/Authors/{id}
+ Test Case: Updating Authors' data with missing firstName
+ Expected Result: 400 Bad Request
+ Actual Result: 200 OK
+ Status: Fail
+ 
+API: PUT /api/v1/Authors/{id}
+ Test Case: Updating Authors' data with missing lastName
+ Expected Result: 400 Bad Request
+ Actual Result: 400 Bad Request
+ Status: Pass
+ 
+API: GET /api/v1/Authors/{id}
+ Test Case: The author's data is changed in GET request for author id = 1
+ Expected Result: firstName = "Mario" and lastName = "Ashraf"
+ Actual Result: firstName = "First Name 1" and lastName = "Last Name 1"
+ Status: Fail
+ 
+------------------------------------------------------------------ 
+
